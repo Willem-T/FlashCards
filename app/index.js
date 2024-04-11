@@ -5,15 +5,8 @@ Desciption:
 
 TODO:       
   //a button to create a new flashcard deck
-  //a input field to name the deck
-  //a input field to add the question
-  //a input field to add the answer
-  //a button to add the flashcard
-  //a button to submit the deck
 
   //a button to view all decks
-  //a button to view a specific deck
-  //long hold to bring mode to edit deck
 */ 
 
 // Components
@@ -42,13 +35,13 @@ export default function App() {
       <View style={Styles.navButtonContainer}>
         <NavButton
           text={"Create Deck"}
-          path={"/createDeck"}
+          path={"/deckCreation"}
           style={Styles.navButton}
         />
 
         <NavButton
           text={"View Decks"}
-          path={"/deckList"}
+          path={"/deckViewer"}
           style={Styles.navButton}
         />
       </View>

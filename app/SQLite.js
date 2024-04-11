@@ -4,7 +4,7 @@
  * Purpose: CIT-2269 Final Project
  * Description: SQLite database for flashcard app
  * TODO:
- * 
+ *      create addDeck function
  */
 
 import * as SQLite from 'expo-sqlite';
@@ -30,8 +30,25 @@ export const initDatabase = ()  => {
     return promise;
 };
 
+//STUB
 //add a deck
-
+export const addDeck = (name) => {
+    const promise = new Promise((resolve, reject) => {
+        db.transaction((tx) => {
+            tx.executeSql(
+                'INSERT INTO decks (name) VALUES (?);',
+                [name],
+                (_, result) => {
+                    resolve(result);
+                },
+                (_, err) => {
+                    reject(err);
+                }
+            );
+        });
+    });
+    return promise;
+};
 
 //fetch all decks
 export const fetchDecks = (callback) => {
