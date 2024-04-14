@@ -39,6 +39,15 @@ const styles = StyleSheet.create({
         marginBottom: 90,
         top: 20,
     },
+    backButton: {
+        width: '30%',
+        alignItems: 'center',
+        padding: 16,
+        borderRadius: 6, 
+        elevation: 2,
+        marginTop: 40,
+        backgroundColor: '#C70039',
+    },
 });
 
 export default styles;

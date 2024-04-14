@@ -11,7 +11,7 @@
 
 import { View, ScrollView, Text, Pressable } from "react-native";
 import BackButton from './components/backButton.js';
-import { initDatabase, fetchDecks, } from "./SQLite";
+import { initDatabase, fetchDecks, fetchFlashcards} from "./SQLite";
 import { useState, useEffect } from "react";
 import { useNavigation } from "expo-router";
 
@@ -35,6 +35,12 @@ export default function App() {
       setDecks(decks);
     });
   }, []);
+
+  // useEffect(() => {
+  //   fetchFlashcards(14, (flashcards) => {
+  //     console.log(flashcards);//debug
+  //   });
+  // }, []);
 
   return (
     <View style={Styles.container}>

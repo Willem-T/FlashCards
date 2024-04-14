@@ -9,7 +9,7 @@
  *      
  */
 
-import { View, Text, TextInput, Pressable, Modal } from "react-native";
+import { View, Text, TextInput, Pressable, Modal, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import { addDeck, addFlashcard, initDatabase, fetchDecks, } from "./SQLite";
 import BackButton from './components/backButton.js';
@@ -18,6 +18,7 @@ import BackButton from './components/backButton.js';
 // Styles
 import Styles from "./styles/generalStyleSheet.js";
 import DeckCreationStyles from "./styles/deckCreationStyleSheet.js";
+import DeckViewerStyles from "./styles/deckViewerStyleSheet.js";
 
 export default function App() {
   const [name, setName] = useState('');
@@ -31,17 +32,19 @@ export default function App() {
     initDatabase();
   }, []);
 
-    useEffect(() => {
-      fetchDecks((decks) => {
-        console.log(decks);
-      });
-    }, []);
-    
+  // useEffect(() => {
+  //   fetchDecks((decks) => {
+  //     console.log(decks);
+  //   });
+  // }, []);
+
   async function createDeck() {
     await addDeck(name);
     // let result = await fetchDecks();
     // console.log(result);
-
+    for(let i = 0; i < flashcards.length; i++) {
+      await addFlashcard(name, flashcards[i].question, flashcards[i].answer);
+    }
   }
 
 
@@ -85,8 +88,16 @@ export default function App() {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={Styles.centeredView}>
+        <View style={DeckCreationStyles.modelContainer}>
           <View style={Styles.modalView}>
+
+            {/* Hide */}
+            <Pressable
+              style={DeckCreationStyles.modalBackButton}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={DeckCreationStyles.buttonText}>Hide Modal</Text>
+            </Pressable>
+
             <TextInput
               style={DeckCreationStyles.input}
               onChangeText={setQuestion}
@@ -103,16 +114,10 @@ export default function App() {
               keyboardType="default"
             />
 
+            {/* Add Flashcard */}
             <Pressable
-              style={Styles.backButton}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text>Hide Modal</Text>
-            </Pressable>
-            <Pressable
-              style={[Styles.backButton, { backgroundColor: '#FFC300' }]}
+              style={[Styles.backButton, { backgroundColor: '#FFC300', alignSelf: 'center', }]}
               onPress={() => {
-
                 flashcards.push({ question: question, answer: answer });
                 console.log(flashcards);
                 setQuestion('');
@@ -124,6 +129,22 @@ export default function App() {
           </View>
         </View>
       </Modal>
+
+      <ScrollView
+              style={DeckCreationStyles.scrollView}
+              contentContainerStyle={{
+                paddingBottom: 20,
+              }}
+            >
+              {flashcards.map((flashcard, index) => {
+                return (
+                  <View key={index} style={DeckCreationStyles.flashcard}>
+                    <Text style={DeckCreationStyles.flashcardText}>{"Question: " + flashcard.question}</Text>
+                    <Text style={DeckCreationStyles.flashcardText}>{"Answer: " + flashcard.answer + "\n"}</Text>
+                  </View>
+                );
+              })}
+            </ScrollView>
     </View>
   )
 }

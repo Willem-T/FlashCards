@@ -12,11 +12,13 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        margin: 12,
+        margin: 15,
+        marginTop: 70,
         borderWidth: 1,
         padding: 10,
         width: '80%',
         backgroundColor: 'white',
+        alignSelf: 'center',
     },
     modelButton: {
         width: '40%',
@@ -34,6 +36,44 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
+    },
+    modalBackButton: {
+        width: '30%',
+        alignSelf: 'center',
+        padding: 16,
+        borderRadius: 6, 
+        elevation: 2,
+        marginTop: 40,
+        backgroundColor: '#C70039',
+    },
+    buttonText: {
+        fontSize: 20,
+        color: '#fff',
+    },
+    modelContainer: {
+        flex: 1,
+        height: '100%',
+        width: '100%',
+        //justifyContent: 'center',
+        //alignItems: 'center',
+        marginTop: 22,
+        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    },
+    scrollView: {
+        width: '100%',
+        height: '70%',
+        marginBottom: 90,
+        backgroundColor: '#FFC300',
+        borderRadius: 6,
+        elevation: 2,
+
+    },
+    flashcardText: {
+        fontSize: 20,
+        color: 'black',
+    },
+    flashcard: {
+        //for later use
     },
 });
 
