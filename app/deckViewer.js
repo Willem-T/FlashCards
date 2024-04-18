@@ -58,9 +58,9 @@ export default function App() {
         }}
       >
         {decks.map((deck) => {
-          console.log(deck.id);//debug
+          console.log(deck.id + " " + deck.name);//debug
           return (
-            <NavButton text={deck.name} params={deck.id} path={"flashcardViewer"} style={DeckViewerStyles.button}/>
+            <NavButton text={deck.name} params={deck.name} path={"flashcardViewer"} style={DeckViewerStyles.button}/>
           );
         })}
       </ScrollView>

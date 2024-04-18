@@ -52,7 +52,7 @@ export default function App() {
   useEffect(() => {
     console.log(flashcards);//debug
     //filter the flashcards
-    let filteredFlashcards = flashcards.filter(flashcard => flashcard.id == params.deckId);
+    let filteredFlashcards = flashcards.filter(flashcard => flashcard.deck_id == params.deckId);
     setFilteredFlashcards(filteredFlashcards);
   }, [flashcards]);
 
