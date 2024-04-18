@@ -11,7 +11,7 @@
 
 import { View, ScrollView, Text, Pressable } from "react-native";
 import BackButton from './components/backButton.js';
-import { initDatabase, fetchDecks, fetchAllFlashcards} from "./SQLite";
+import { initDatabase, fetchDecks, fetchFlashcards} from "./SQLite";
 import { useState, useEffect } from "react";
 import { useNavigation } from "expo-router";
 import NavButton from "./components/navButton.js";
@@ -24,7 +24,6 @@ import DeckViewerStyles from "./styles/deckViewerStyleSheet.js";
 
 export default function App() {
   const [decks, setDecks] = useState([]);
-  const [flashcards, setFlashcards] = useState([]);
   const navigation = useNavigation();
 
 
@@ -39,26 +38,11 @@ export default function App() {
     });
   }, []);
 
-  //fetch all the flashcards in an async way
-  async function getFlashcards() {
-    await fetchAllFlashcards((flashcards) => {
-      //console.log(flashcards);//debug
-      //setFlashcards(flashcards);
-
-      // filter the flashcards
-      // for (let i = 0; i < flashcards.length; i++) {
-      //   if (flashcards[i].id == params.deckId) {
-      //     console.log(flashcards[i]);//debug
-      //     setFlashcards(flashcards[i]);
-      //   }
-      // }
-      setFlashcards(flashcards);
-    });
-  }
-
-  useEffect(() => {
-    getFlashcards();
-  }, []);
+  // useEffect(() => {
+  //   fetchFlashcards(1, (flashcards) => {
+  //     console.log(flashcards);//debug
+  //   });
+  // }, []);
 
   return (
     <View style={Styles.container}>
@@ -76,14 +60,7 @@ export default function App() {
         {decks.map((deck) => {
           console.log(deck.id);//debug
           return (
-            <NavButton 
-            text={deck.name} 
-            params={{
-              deckId: deck.id,
-              flashcards: flashcards,
-            }}
-            path={"flashcardViewer"} 
-            style={DeckViewerStyles.button}/>
+            <NavButton text={deck.name} params={deck.id} path={"flashcardViewer"} style={DeckViewerStyles.button}/>
           );
         })}
       </ScrollView>

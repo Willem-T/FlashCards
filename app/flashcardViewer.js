@@ -10,7 +10,7 @@
 
 import { View, Text, Pressable } from "react-native";
 import BackButton from './components/backButton.js';
-import { fetchFlashcards, fetchAllFlashcards} from "./SQLite";
+import { fetchFlashcards, fetchAllFlashcards } from "./SQLite";
 import { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 
@@ -20,43 +20,50 @@ import DeckViewerStyles from "./styles/deckViewerStyleSheet.js";
 
 
 export default function App() {
-  const [flashcard, setFlashcard] = useState([]);
+  const [flashcards, setFlashcards] = useState([]);
+  const [filteredFlashcards, setFilteredFlashcards] = useState([]);
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
-  const { deckId, flashcards} = useLocalSearchParams();
+  const params = useLocalSearchParams();
 
+  //debug
   useEffect(() => {
-  console.log(deckId);//debug
-  console.log(flashcards);//debug
-
-  setFlashcard(flashcards);
+    console.log(params.deckId);
   }, []);
-  //moving this to the other page since im fecthing all the flashcards anyway
-  // async function getFlashcards() {
-  //   await fetchAllFlashcards((flashcards) => {
-  //     console.log(flashcards);//debug
-  //     //setFlashcards(flashcards);
+  //debug
+  useEffect(() => {
+    console.log(filteredFlashcards);//debug
+  }, [filteredFlashcards]);
 
-  //     // filter the flashcards
-  //     for (let i = 0; i < flashcards.length; i++) {
-  //       if (flashcards[i].id == params.deckId) {
-  //         console.log(flashcards[i]);//debug
-  //         setFlashcards(flashcards[i]);
-  //       }
-  //     }
-  //   });
-  // }
+  //fetch all the flashcards at the start
+  useEffect(() => {
+    getFlashcards();
+  }, []);
 
-  // useEffect(() => {
-  //   getFlashcards();
-  // }, []);
+  //fetch all the flashcards in an async way
+  async function getFlashcards() {
+    await fetchAllFlashcards((flashcards) => {
+      //console.log(flashcards);//debug
+      setFlashcards(flashcards);
+    });
+  }
+
+  // filter the flashcards based on the deck id
+  // ensure to only filter after the flashcards have been updated
+  useEffect(() => {
+    console.log(flashcards);//debug
+    //filter the flashcards
+    let filteredFlashcards = flashcards.filter(flashcard => flashcard.id == params.deckId);
+    setFilteredFlashcards(filteredFlashcards);
+  }, [flashcards]);
+
 
   return (
     <View style={Styles.container}>
       <BackButton text={"Back"} />
 
-        {/* Main Content */}
+      {/* Main Content */}
 
-        {/* {flashcards.map((flashcard) => {
+      {/* {flashcards.map((flashcard) => {
           return (
             <Text style={DeckViewerStyles.title}>{flashcard.question}</Text>
           )

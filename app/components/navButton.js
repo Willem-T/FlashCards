@@ -7,7 +7,7 @@ export default NavButton = ({ text, style, path, params }) => {
             <Link href={
                 {
                     pathname: path,
-                    params: params
+                    params: {deckId: params}
                 }} asChild> 
                 <Pressable
                     style={style}
