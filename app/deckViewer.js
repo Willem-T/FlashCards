@@ -11,9 +11,11 @@
 
 import { View, ScrollView, Text, Pressable } from "react-native";
 import BackButton from './components/backButton.js';
-import { initDatabase, fetchDecks, fetchFlashcards} from "./SQLite";
+import { initDatabase, fetchDecks, fetchAllFlashcards} from "./SQLite";
 import { useState, useEffect } from "react";
 import { useNavigation } from "expo-router";
+import NavButton from "./components/navButton.js";
+import {Link} from "expo-router";
 
 // Styles
 import Styles from "./styles/generalStyleSheet.js";
@@ -22,6 +24,7 @@ import DeckViewerStyles from "./styles/deckViewerStyleSheet.js";
 
 export default function App() {
   const [decks, setDecks] = useState([]);
+  const [flashcards, setFlashcards] = useState([]);
   const navigation = useNavigation();
 
 
@@ -36,11 +39,26 @@ export default function App() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   fetchFlashcards(14, (flashcards) => {
-  //     console.log(flashcards);//debug
-  //   });
-  // }, []);
+  //fetch all the flashcards in an async way
+  async function getFlashcards() {
+    await fetchAllFlashcards((flashcards) => {
+      //console.log(flashcards);//debug
+      //setFlashcards(flashcards);
+
+      // filter the flashcards
+      // for (let i = 0; i < flashcards.length; i++) {
+      //   if (flashcards[i].id == params.deckId) {
+      //     console.log(flashcards[i]);//debug
+      //     setFlashcards(flashcards[i]);
+      //   }
+      // }
+      setFlashcards(flashcards);
+    });
+  }
+
+  useEffect(() => {
+    getFlashcards();
+  }, []);
 
   return (
     <View style={Styles.container}>
@@ -56,19 +74,16 @@ export default function App() {
         }}
       >
         {decks.map((deck) => {
+          console.log(deck.id);//debug
           return (
-            
-            <Pressable
-              style={DeckViewerStyles.button}
-              id={deck.id.toString()}
-              key={deck.name}
-              onPress={() => { 
-                navigation.navigate("flashcardViewer", { deckName: deck.name});
-              }}
-              onLongPress={() => { }} //todo add a long press to edit the deck
-            >
-              <Text style={DeckViewerStyles.buttonText}>{deck.name}</Text>
-            </Pressable>
+            <NavButton 
+            text={deck.name} 
+            params={{
+              deckId: deck.id,
+              flashcards: flashcards,
+            }}
+            path={"flashcardViewer"} 
+            style={DeckViewerStyles.button}/>
           );
         })}
       </ScrollView>

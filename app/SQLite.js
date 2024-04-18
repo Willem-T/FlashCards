@@ -9,7 +9,7 @@
 
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('flashcards9253232.db');
+const db = SQLite.openDatabase('flashcards962532732.db');
 
 //initialize the database
 export const initDatabase = ()  => {
@@ -88,6 +88,7 @@ export const fetchDecks = (callback) => {
     });
   };
 
+//currently not used since it doesn't callback  
 //fetch all flashcards from deck_id
 export const fetchFlashcards = (deckId, callback) => {
     db.transaction(tx => {
@@ -102,7 +103,28 @@ export const fetchFlashcards = (deckId, callback) => {
           callback(flashcards);
         },
         error => {
-          console.log('Error fetching sounds: ', error);
+          console.log('Error fetching flashcards: ', error);
+          callback([]); // Provide an empty array in case of an error
+        }
+      );
+    });
+  };
+
+  //fetch all flashcards
+  export const fetchAllFlashcards = async (callback) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'SELECT * FROM flashcards',
+        [],
+        (_, { rows }) => {
+          const flashcards = [];
+          for (let i = 0; i < rows.length; i++) {
+            flashcards.push(rows.item(i));
+          }
+          callback(flashcards);
+        },
+        error => {
+          console.log('Error fetching flashcards: ', error);
           callback([]); // Provide an empty array in case of an error
         }
       );

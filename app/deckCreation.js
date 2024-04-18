@@ -32,12 +32,6 @@ export default function App() {
     initDatabase();
   }, []);
 
-  // useEffect(() => {
-  //   fetchDecks((decks) => {
-  //     console.log(decks);
-  //   });
-  // }, []);
-
   async function createDeck() {
     await addDeck(name);
     // let result = await fetchDecks();
