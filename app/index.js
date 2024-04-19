@@ -1,10 +1,12 @@
-/*
-Created by:   Willem Toews
-Purpose:      CIT-2269 Final Project
-Desciption:   
+/**
+ * Filename: index.js
+ * Created by: Willem Toews
+ * Purpose: CIT-2269 Final Project
+ * Description: To View and memorize flashcards
+ * TODO:
+ *     
+ */
 
-TODO:       
-*/ 
 
 // Components
 import { StatusBar, View, Text} from 'react-native';

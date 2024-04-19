@@ -5,17 +5,16 @@
  * Description: To View a deck of flashcards
  * TODO:
  *      fix the wierd styling issue when theres only a few decks
+ *      add a long press to edit the deck
  * 
  * Caution: decks id is the name of the deck
  */
 
-import { View, ScrollView, Text, Pressable } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import BackButton from './components/backButton.js';
-import { initDatabase, fetchDecks, fetchFlashcards} from "./SQLite";
+import { initDatabase, fetchDecks} from "./SQLite";
 import { useState, useEffect } from "react";
-import { useNavigation } from "expo-router";
 import NavButton from "./components/navButton.js";
-import {Link} from "expo-router";
 
 // Styles
 import Styles from "./styles/generalStyleSheet.js";

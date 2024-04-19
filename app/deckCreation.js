@@ -6,19 +6,20 @@
  * TODO:
  *      fix the database issues
  *      set limits on the input fields for the flashcards
+ *      clear the flashcards after the deck is created
+ *      fix the deck_id on the flashcard insert to match the id of the deck
  *      
  */
 
 import { View, Text, TextInput, Pressable, Modal, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
-import { addDeck, addFlashcard, initDatabase, fetchDecks, } from "./SQLite";
+import { addDeck, addFlashcard, initDatabase } from "./SQLite";
 import BackButton from './components/backButton.js';
 
 
 // Styles
 import Styles from "./styles/generalStyleSheet.js";
 import DeckCreationStyles from "./styles/deckCreationStyleSheet.js";
-import DeckViewerStyles from "./styles/deckViewerStyleSheet.js";
 
 export default function App() {
   const [name, setName] = useState('');
@@ -39,9 +40,20 @@ export default function App() {
     for(let i = 0; i < flashcards.length; i++) {
       await addFlashcard(name, flashcards[i].question, flashcards[i].answer);
     }
+    return clearInputs();//hopefully this doesnt break anything
   }
 
+  // Clear inputs after deck is created
+  function clearInputs() {
+    setName('');
+    setFlashcards([]);
+  }
 
+  // Clear flashcard inputs
+  function clearFlashInputs() {
+    setQuestion('');
+    setAnswer('');
+  }
 
   return (
     <View style={Styles.container}>
@@ -89,7 +101,7 @@ export default function App() {
             <Pressable
               style={DeckCreationStyles.modalBackButton}
               onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={DeckCreationStyles.buttonText}>Hide Modal</Text>
+              <Text style={DeckCreationStyles.buttonText}>Hide</Text>
             </Pressable>
 
             <TextInput
@@ -114,8 +126,7 @@ export default function App() {
               onPress={() => {
                 flashcards.push({ question: question, answer: answer });
                 console.log(flashcards);
-                setQuestion('');
-                setAnswer('');
+                clearFlashInputs();
               }}
             >
               <Text>Add Flashcard</Text>

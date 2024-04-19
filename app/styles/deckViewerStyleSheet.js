@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     flashcardText: {
-        fontSize: 50,
+        fontSize: 40,
         textAlign: 'center',
     },
     flashcardImage: {
@@ -89,6 +89,14 @@ const styles = StyleSheet.create({
     imageContainer: {
         position: 'absolute',
         width: '100%',
+    },
+    flashcardTitle: {
+        fontSize: 50,
+        textAlign: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0, 
+        right: 0, 
     },
 });
 

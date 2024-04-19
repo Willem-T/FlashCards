@@ -6,6 +6,7 @@
  * TODO:
  *      reset the flashcards after the deck is done
  *      reset currentFlashcardSide after the slashcard is changed
+ *      show modal when the deck is done and allow the user to restart the deck
  */
 
 import { View, Text, Animated, Pressable, ImageBackground } from "react-native";
@@ -24,7 +25,7 @@ export default function App() {
   const [flashcards, setFlashcards] = useState([]);
   const [filteredFlashcards, setFilteredFlashcards] = useState([]);
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
-  const [currentFlashcardSide, setCurrentFlashcardSide] = useState("question");
+  const [currentFlashcardSide, setCurrentFlashcardSide] = useState("Question");//might want to change this to an var later
   const [queue, setQueue] = useState([]);
   const params = useLocalSearchParams();
   const translateX = new Animated.Value(0);
@@ -101,7 +102,6 @@ export default function App() {
   /******************************
   * Swipe logic
   ******************************/
-
   //swipe right
   //know the answer remove the flashcard
   function onSwipeRight() {
@@ -139,8 +139,10 @@ export default function App() {
     if (event.nativeEvent.oldState === State.ACTIVE) {
       if (event.nativeEvent.translationX > 115) {
         onSwipeRight();
+        setCurrentFlashcardSide("Question");
       } else if (event.nativeEvent.translationX < -115) {
         onSwipeLeft();
+        setCurrentFlashcardSide("Question");
       } else {
         Animated.spring(translateX, {
           toValue: 0,
@@ -157,10 +159,10 @@ export default function App() {
   ******************************/
   //flip the flashcard
   function flashcardSide() {
-    if (currentFlashcardSide == "question") {
-      setCurrentFlashcardSide("answer");
+    if (currentFlashcardSide == "Question") {
+      setCurrentFlashcardSide("Answer");
     } else {
-      setCurrentFlashcardSide("question");
+      setCurrentFlashcardSide("Question");
     }
   }
 
@@ -184,8 +186,9 @@ export default function App() {
                 <ImageBackground source={require('../assets/redArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.redArrow]} />
                 <ImageBackground source={require('../assets/greenArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.greenArrow]} />
               </View>
+              <Text style={DeckViewerStyles.flashcardTitle}> {currentFlashcardSide} </Text>
               <Text style={DeckViewerStyles.flashcardText}>{queue.length > 0 ? (
-                currentFlashcardSide == "question" ? "Question: " + queue[currentFlashcard]?.question : "Answer: " + queue[currentFlashcard]?.answer
+                currentFlashcardSide == "Question" ? queue[currentFlashcard]?.question : queue[currentFlashcard]?.answer
               ) : (
                 "No questions available"
               )}</Text>
