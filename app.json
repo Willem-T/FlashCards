@@ -2,7 +2,7 @@
   "expo": {
     "name": "FlashCards",
     "slug": "FlashCards",
-    "version": "2.7.2",
+    "version": "2.8.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -27,7 +27,7 @@
           "backgroundColor": "#191919"
         },
         "package": "com.flashcards",
-        "versionCode": 272
+        "versionCode": 288
       },
       "package": "com.willemtoews.FlashCards"
     },

@@ -31,9 +31,9 @@ Dependencies
 
     APK
 
-    To install the Flashcard App on an Android device, you can download the APK file from the [releases](https://github.com/your-username/your-repo/releases) section of the GitHub repository.
+    To install the Flashcard App on an Android device, you can download the APK file from the [releases](https://github.com/Willem-T/FlashCards/releases) section of the GitHub repository.
 
-    1. Go to the [releases](https://github.com/your-username/your-repo/releases) section of the GitHub repository.
+    1. Go to the [releases](https://github.com/Willem-T/FlashCards/releases) section of the GitHub repository.
     2. Download the latest APK file.
     3. Transfer the APK file to your Android device.
     4. On your Android device, navigate to the location where you transferred the APK file.
