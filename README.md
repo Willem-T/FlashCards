@@ -52,4 +52,5 @@ Usage
     Track your progress and review your performance after each study session.
 
 Known issues
+
   database is breaking at random times
