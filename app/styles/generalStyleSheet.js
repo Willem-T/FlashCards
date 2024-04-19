@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     },
     image: {
         borderColor: 'white',
-        borderStyle: 'solid',
         borderWidth: 2,
         alignSelf: 'center',
         width: '95%',

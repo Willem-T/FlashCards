@@ -30,17 +30,13 @@ export default function App() {
         <Text style={Styles.infoText}>
           This app was created by Willem Toews for the CIT-2269 final project.
           {"\n\n"}
-          The purpose of this app is to help users memorize flashcards.
-          {"\n\n"}
-          The app is simple to use and has a clean design.
+          The purpose of this app is to help users memorize questions using flashcards.
           {"\n\n"}
           The user can create decks of flashcards and view them.
           {"\n\n"}
-          The user can also view and memorize the flashcards.
+          The user can also view and memorize the questions.
           {"\n\n"}
           The app is built using React Native and SQLite.
-          {"\n\n"}
-          The app is also hosted on GitHub.
         </Text>
 
         <Image style={Styles.image} source={require('../assets/info1.png')} />
