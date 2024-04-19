@@ -10,9 +10,10 @@
 
 
 // Components
-import { StatusBar, View, Text} from 'react-native';
+import { StatusBar, View, Text } from 'react-native';
 import NavButton from "./components/navButton.js";
 import { useEffect } from 'react';
+import InfoButton from "./components/infoButton.js";
 
 // Styles
 import Styles from "./styles/generalStyleSheet.js";
@@ -21,13 +22,15 @@ export default function App() {
   useEffect(() => {
     StatusBar.setBarStyle('light-content');
     StatusBar.setBackgroundColor('#191919');
-  }, []); 
-  
+  }, []);
+
   return (
     <View style={Styles.container}>
-
       {/* Title */}
       <Text style={[Styles.headerText]}>FlashCards</Text>
+
+      {/* Info Button */}
+      <InfoButton path={"/info"} />
 
 
       {/* Buttons */}

@@ -55,6 +55,36 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'black',
     },
+    infoButton: {
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
+        margin: 10,
+        right: 0,
+    },
+    infoImage: {
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
+        margin: 10,
+        right: 0,
+        position: 'absolute',
+    },
+    infoText: {
+        color: 'white',
+        fontSize: 20,
+        padding: 20,
+    },
+    image: {
+        borderColor: 'white',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        alignSelf: 'center',
+        width: '95%',
+        height: 800,
+        resizeMode: 'contain',
+        margin: 10,
+    }
 });
 
 export default styles;
