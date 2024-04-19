@@ -4,11 +4,11 @@
  * Purpose: CIT-2269 Final Project
  * Description: To View and memorize flashcards
  * TODO:
- *      Add the ability to view a flash cards
- *      fix the filtering becuase of async issues
+ *      reset the flashcards after the deck is done
+ *      reset currentFlashcardSide after the slashcard is changed
  */
 
-import { View, Text, Animated, Pressable } from "react-native";
+import { View, Text, Animated, Pressable, ImageBackground } from "react-native";
 import { GestureHandlerRootView, PanGestureHandler, State } from "react-native-gesture-handler";
 import BackButton from './components/backButton.js';
 import { fetchAllFlashcards } from "./SQLite";
@@ -101,17 +101,31 @@ export default function App() {
   /******************************
   * Swipe logic
   ******************************/
+
+  //swipe right
+  //know the answer remove the flashcard
+  function onSwipeRight() {
+    Animated.timing(translateX, {
+      toValue: 500,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => {
+      removeFlashcard(currentFlashcard);
+      translateX.setValue(0);
+    });
+  }
+
   //swipe right
   //dont know the answer keep the flashcard
-  function onSwipeRight() {
-    console.log("swiped right");
-    removeFlashcard(currentFlashcard);
-  }
-  //swipe left
-  //know the answer remove the flashcard
   function onSwipeLeft() {
-    console.log("swiped left");
-    randomFlashcard();
+    Animated.timing(translateX, {
+      toValue: -500,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => {
+      randomFlashcard();
+      translateX.setValue(0);
+    });
   }
 
   // Gesture handling
@@ -123,20 +137,17 @@ export default function App() {
   // Handle the state change of the gesture
   const handleStateChange = (event) => {
     if (event.nativeEvent.oldState === State.ACTIVE) {
-      if (event.nativeEvent.translationX > 85) {
-        // Swiped right
+      if (event.nativeEvent.translationX > 115) {
         onSwipeRight();
-      } else if (event.nativeEvent.translationX < -85) {
-        // Swiped left
+      } else if (event.nativeEvent.translationX < -115) {
         onSwipeLeft();
+      } else {
+        Animated.spring(translateX, {
+          toValue: 0,
+          useNativeDriver: true,
+        }).start();
       }
     }
-
-    // Return to the initial position regardless of swipe direction
-    Animated.spring(translateX, {
-      toValue: 0,
-      useNativeDriver: true,
-    }).start();
   };
 
 
@@ -168,8 +179,13 @@ export default function App() {
               onPress={() => flashcardSide()}
               style={{ flex: 1, justifyContent: 'center' }}
             >
+
+              <View style={DeckViewerStyles.imageContainer}>
+                <ImageBackground source={require('../assets/redArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.redArrow]} />
+                <ImageBackground source={require('../assets/greenArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.greenArrow]} />
+              </View>
               <Text style={DeckViewerStyles.flashcardText}>{queue.length > 0 ? (
-                currentFlashcardSide == "question" ? queue[currentFlashcard]?.question : queue[currentFlashcard]?.answer
+                currentFlashcardSide == "question" ? "Question: " + queue[currentFlashcard]?.question : "Answer: " + queue[currentFlashcard]?.answer
               ) : (
                 "No questions available"
               )}</Text>

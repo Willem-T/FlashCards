@@ -4,7 +4,7 @@
  * Purpose: CIT-2269 Final Project
  * Description: To View a deck of flashcards
  * TODO:
- *      Add the ability to view a deck
+ *      fix the wierd styling issue when theres only a few decks
  * 
  * Caution: decks id is the name of the deck
  */
@@ -24,25 +24,19 @@ import DeckViewerStyles from "./styles/deckViewerStyleSheet.js";
 
 export default function App() {
   const [decks, setDecks] = useState([]);
-  const navigation = useNavigation();
 
-
+  //initialize the database
   useEffect(() => {
     initDatabase();
   }, []);
 
+  //fetch all the decks
   useEffect(() => {
     fetchDecks((decks) => {
       console.log(decks);//debug
       setDecks(decks);
     });
   }, []);
-
-  // useEffect(() => {
-  //   fetchFlashcards(1, (flashcards) => {
-  //     console.log(flashcards);//debug
-  //   });
-  // }, []);
 
   return (
     <View style={Styles.container}>

@@ -61,16 +61,34 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         minWidth: "80%",
-        width: "100%",
+        maxWidth: "80%",
         height: "90%",
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        flex: 1,
         justifyContent: 'center',
+        flex: 1,
     },
     flashcardText: {
-        fontSize: 60,
+        fontSize: 50,
         textAlign: 'center',
+    },
+    flashcardImage: {
+        width: 50,
+        height: 50,
+        position: 'absolute',
+    },
+    redArrow: {
+        position: 'absolute',
+        left: -25, 
+    },
+    greenArrow: {
+        transform: [{ rotate: '180deg' }],
+        position: 'absolute', 
+        right: -25, 
+    },
+    imageContainer: {
+        position: 'absolute',
+        width: '100%',
     },
 });
 
