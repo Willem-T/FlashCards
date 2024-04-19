@@ -14,3 +14,4 @@
 
 Known issues:
   database is currently breaking at random times
+  key props is cuasing errors
