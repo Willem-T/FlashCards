@@ -2,7 +2,7 @@
   "expo": {
     "name": "FlashCards",
     "slug": "FlashCards",
-    "version": "1.0.0",
+    "version": "2.7.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -20,8 +20,16 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#191919"
-      }
+        "backgroundColor": "#191919",
+        "splash": {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#191919"
+        },
+        "package": "com.flashcards",
+        "versionCode": 272
+      },
+      "package": "com.willemtoews.FlashCards"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,6 +37,14 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "router"
+    "scheme": "router",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f9267c8e-0d03-4526-b5f5-bb600858ecb8"
+      }
+    }
   }
 }

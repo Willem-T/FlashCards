@@ -53,7 +53,13 @@ export default function App() {
         {decks.map((deck) => {
           console.log(deck.id + " " + deck.name);//debug
           return (
-            <NavButton text={deck.name} params={deck.name} path={"flashcardViewer"} style={DeckViewerStyles.button}/>
+            <NavButton 
+            text={deck.name} 
+            params={deck.name} 
+            path={"flashcardViewer"} 
+            style={DeckViewerStyles.button}
+            key={deck.id}//this fixes the warning ie. this isnt used and is just for removing the warning
+            />
           );
         })}
       </ScrollView>

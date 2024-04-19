@@ -93,6 +93,43 @@ const styles = StyleSheet.create({
         left: 0, 
         right: 0, 
     },
+    modelContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+    },
+    modal: {
+        backgroundColor: '#191919',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    modalText: {
+        color: '#fff',
+        fontSize: 40,
+        textAlign: 'center',
+        padding: 5,
+    },
+    modalTitle: {
+        fontSize: 50,
+        padding: 15,
+        width: '100%',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#fff', 
+        textShadowColor: '#FFC300',
+        textShadowOffset: { width: 0, height: 0 },
+        textShadowRadius: 20, 
+    },
 });
 
 export default styles;

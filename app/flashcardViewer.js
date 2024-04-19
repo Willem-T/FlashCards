@@ -4,12 +4,10 @@
  * Purpose: CIT-2269 Final Project
  * Description: To View and memorize flashcards
  * TODO:
- *      reset the flashcards after the deck is done
- *      reset currentFlashcardSide after the slashcard is changed
  *      show modal when the deck is done and allow the user to restart the deck
  */
 
-import { View, Text, Animated, Pressable, ImageBackground } from "react-native";
+import { View, Text, Animated, Pressable, ImageBackground, Modal } from "react-native";
 import { GestureHandlerRootView, PanGestureHandler, State } from "react-native-gesture-handler";
 import BackButton from './components/backButton.js';
 import { fetchAllFlashcards } from "./SQLite";
@@ -26,9 +24,11 @@ export default function App() {
   const [filteredFlashcards, setFilteredFlashcards] = useState([]);
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
   const [currentFlashcardSide, setCurrentFlashcardSide] = useState("Question");//might want to change this to an var later
-  const [queue, setQueue] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
   const params = useLocalSearchParams();
+  const [queue, setQueue] = useState([{ "answer": "Loading...", "deck_id": "Loading", "id": params.deckId, "question": "Loading..." }]);// needs to be a defualt length of 1 to not show the restart modal
   const translateX = new Animated.Value(0);
+  const [counter, setCounter] = useState({ "right": 0, "wrong": 0});
 
   //debug
   useEffect(() => {
@@ -110,6 +110,7 @@ export default function App() {
       duration: 200,
       useNativeDriver: true,
     }).start(() => {
+      setCounter({ "right": counter.right + 1, "wrong": counter.wrong})
       removeFlashcard(currentFlashcard);
       translateX.setValue(0);
     });
@@ -123,6 +124,7 @@ export default function App() {
       duration: 200,
       useNativeDriver: true,
     }).start(() => {
+      setCounter({ "wrong": counter.wrong + 1, "right": counter.right})
       randomFlashcard();
       translateX.setValue(0);
     });
@@ -166,6 +168,53 @@ export default function App() {
     }
   }
 
+  /******************************
+  * End of deck logic
+  ******************************/
+  //check if the deck is done
+  const isEndOfDeck = () => {
+    if (queue.length === 0) {
+      return (
+        console.log(counter) // Debugging purposes
+        ,
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={true} // Set modalVisible to true when the deck is done
+          onRequestClose={() => {
+            setModalVisible(false); 
+          }}
+        >
+          <View style={DeckViewerStyles.modelContainer}>
+            <View style={DeckViewerStyles.modal}>
+              <Text style={DeckViewerStyles.modalTitle}>Deck Completed</Text>
+              <Text style={DeckViewerStyles.modalText}>You Knew {counter.right > 0 ? ((filteredFlashcards.length / (counter.right + counter.wrong)) * 100) : ""}% Of The Questions</Text>
+              <Text style={DeckViewerStyles.modalText}>Knew: {counter.right}</Text>
+              <Text style={DeckViewerStyles.modalText}>Didn't Know: {counter.wrong}</Text>
+              <Pressable
+                style={[Styles.backButton, { backgroundColor: '#FFC300', alignSelf: 'center', }]}
+                onPress={() => {
+                  setQueue(filteredFlashcards);
+                  setModalVisible(false);
+                  resetCounter();
+                }}
+              >
+                <Text>Restart Deck</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+      );
+    } else {
+      return (<></>); // Return null if the deck is not done
+    }
+  }
+
+  //reset the counter
+  function resetCounter() {
+    setCounter({ "right": 0, "wrong": 0});
+  }
+  
   return (
     <View style={Styles.container}>
       <BackButton text={"Back"} />
@@ -196,6 +245,9 @@ export default function App() {
           </Animated.View>
         </PanGestureHandler>
       </GestureHandlerRootView>
+
+      {/* Modal */}
+      {isEndOfDeck()}
     </View>
   )
 }
