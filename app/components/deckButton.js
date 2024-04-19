@@ -1,6 +1,5 @@
 /**
  * NO LONGER USED
- * 
  */
 import { Pressable, View, Text } from "react-native";
 import Styles from "../styles/generalStyleSheet.js";

@@ -4,9 +4,6 @@ Purpose:      CIT-2269 Final Project
 Desciption:   
 
 TODO:       
-  //a button to create a new flashcard deck
-
-  //a button to view all decks
 */ 
 
 // Components
@@ -22,8 +19,7 @@ export default function App() {
     StatusBar.setBarStyle('light-content');
     StatusBar.setBackgroundColor('#191919');
   }, []); 
-
-
+  
   return (
     <View style={Styles.container}>
 

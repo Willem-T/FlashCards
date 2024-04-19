@@ -9,7 +9,7 @@
 
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('flashcards962532732.db');
+const db = SQLite.openDatabase('flashcards9.db');
 
 //initialize the database
 export const initDatabase = ()  => {
