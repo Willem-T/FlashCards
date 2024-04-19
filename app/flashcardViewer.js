@@ -8,10 +8,10 @@
  *      fix the filtering becuase of async issues
  */
 
-import { View, Text, Animated } from "react-native";
+import { View, Text, Animated, Pressable } from "react-native";
 import { GestureHandlerRootView, PanGestureHandler, State } from "react-native-gesture-handler";
 import BackButton from './components/backButton.js';
-import { fetchFlashcards, fetchAllFlashcards } from "./SQLite";
+import { fetchAllFlashcards } from "./SQLite";
 import { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 
@@ -24,6 +24,7 @@ export default function App() {
   const [flashcards, setFlashcards] = useState([]);
   const [filteredFlashcards, setFilteredFlashcards] = useState([]);
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
+  const [currentFlashcardSide, setCurrentFlashcardSide] = useState("question");
   const [queue, setQueue] = useState([]);
   const params = useLocalSearchParams();
   const translateX = new Animated.Value(0);
@@ -104,25 +105,28 @@ export default function App() {
   //dont know the answer keep the flashcard
   function onSwipeRight() {
     console.log("swiped right");
-    randomFlashcard();
+    removeFlashcard(currentFlashcard);
   }
   //swipe left
   //know the answer remove the flashcard
   function onSwipeLeft() {
     console.log("swiped left");
-    removeFlashcard(currentFlashcard);
+    randomFlashcard();
   }
+
+  // Gesture handling
   const handleGestureEvent = Animated.event(
     [{ nativeEvent: { translationX: translateX } }],
     { useNativeDriver: true }
   );
 
+  // Handle the state change of the gesture
   const handleStateChange = (event) => {
     if (event.nativeEvent.oldState === State.ACTIVE) {
-      if (event.nativeEvent.translationX > 75) {
+      if (event.nativeEvent.translationX > 85) {
         // Swiped right
         onSwipeRight();
-      } else if (event.nativeEvent.translationX < -75) {
+      } else if (event.nativeEvent.translationX < -85) {
         // Swiped left
         onSwipeLeft();
       }
@@ -134,6 +138,21 @@ export default function App() {
       useNativeDriver: true,
     }).start();
   };
+
+
+
+  /******************************
+  * fliping the flashcard
+  ******************************/
+  //flip the flashcard
+  function flashcardSide() {
+    if (currentFlashcardSide == "question") {
+      setCurrentFlashcardSide("answer");
+    } else {
+      setCurrentFlashcardSide("question");
+    }
+  }
+
   return (
     <View style={Styles.container}>
       <BackButton text={"Back"} />
@@ -144,15 +163,17 @@ export default function App() {
           onGestureEvent={handleGestureEvent}
           onHandlerStateChange={handleStateChange}
         >
-          <Animated.View
-            style={[DeckViewerStyles.flashcard, { transform: [{ translateX }] }]}
-          >
-            <Text style={DeckViewerStyles.flashcardText}>{queue.length > 0 ? (
-              queue[currentFlashcard]?.question || "No questions available"
-            ) : (
-              "No questions available"
-            )}</Text>
-            <Text style={DeckViewerStyles.flashcardText}>{queue[currentFlashcard]?.answer}</Text>
+          <Animated.View style={[DeckViewerStyles.flashcard, { transform: [{ translateX }] }]}>
+            <Pressable
+              onPress={() => flashcardSide()}
+              style={{ flex: 1, justifyContent: 'center' }}
+            >
+              <Text style={DeckViewerStyles.flashcardText}>{queue.length > 0 ? (
+                currentFlashcardSide == "question" ? queue[currentFlashcard]?.question : queue[currentFlashcard]?.answer
+              ) : (
+                "No questions available"
+              )}</Text>
+            </Pressable>
           </Animated.View>
         </PanGestureHandler>
       </GestureHandlerRootView>

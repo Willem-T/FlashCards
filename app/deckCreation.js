@@ -5,6 +5,7 @@
  * Description: To create a new flashcard deck
  * TODO:
  *      fix the database issues
+ *      set limits on the input fields for the flashcards
  *      
  */
 

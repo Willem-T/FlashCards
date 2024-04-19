@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#C70039',
     },
     flashcard: {
-        backgroundColor: "white",
+        backgroundColor: "#FFC300",
         padding: 20,
         borderRadius: 10,
         elevation: 5,
@@ -65,9 +65,11 @@ const styles = StyleSheet.create({
         height: "90%",
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
+        flex: 1,
+        justifyContent: 'center',
     },
     flashcardText: {
-        fontSize: 20,
+        fontSize: 60,
         textAlign: 'center',
     },
 });
