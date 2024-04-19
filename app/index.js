@@ -4,6 +4,7 @@
  * Purpose: CIT-2269 Final Project
  * Description: To View and memorize flashcards
  * TODO:
+ *       create edit and delete functionality (yeah we aint gonna have time for that)
  *     
  */
 

@@ -5,11 +5,12 @@
  * Description: SQLite database for flashcard app
  * TODO:
  *      
+ *      
  */
 
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('flashcards9.db');
+const db = SQLite.openDatabase('flashcards92.db');
 
 //initialize the database
 export const initDatabase = ()  => {
