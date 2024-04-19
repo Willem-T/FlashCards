@@ -33,6 +33,8 @@ export default function App() {
     console.log(params.deckId);
   }, []);
 
+
+
   /******************************
    * Flashcard Fetch
    ******************************/
@@ -48,6 +50,8 @@ export default function App() {
       setFlashcards(flashcards);
     });
   }
+
+
 
   /******************************
    * Filtering
@@ -67,17 +71,14 @@ export default function App() {
     setQueue(filteredFlashcards);
   }, [filteredFlashcards]);
 
+
+
   /******************************
   * queue logic
   ******************************/
   //set the current flashcard
   useEffect(() => {
-    //randomize the queue number based on the length of the queue
-    let random = Math.floor(Math.random() * queue.length);
-    setCurrentFlashcard(random);
-    console.log("//////////////////////////");//debug
-    console.log(queue);//debug
-    //console.log(queue[random]);//debug
+    randomFlashcard();
   }, [queue]);
   //remove the flashcard from the queue
   function removeFlashcard(index) {
@@ -85,16 +86,31 @@ export default function App() {
     setQueue(newQueue);
   }
 
+  function randomFlashcard() {
+    //randomize the queue number based on the length of the queue
+    let random = Math.floor(Math.random() * queue.length);
+    setCurrentFlashcard(random);
+    console.log("//////////////////////////");//debug
+    console.log(queue);//debug
+    //console.log(queue[random]);//debug
+  }
+
+
+
   /******************************
   * Swipe logic
   ******************************/
   //swipe right
+  //dont know the answer keep the flashcard
   function onSwipeRight() {
     console.log("swiped right");
+    randomFlashcard();
   }
   //swipe left
+  //know the answer remove the flashcard
   function onSwipeLeft() {
     console.log("swiped left");
+    removeFlashcard(currentFlashcard);
   }
   const handleGestureEvent = Animated.event(
     [{ nativeEvent: { translationX: translateX } }],
@@ -122,37 +138,24 @@ export default function App() {
     <View style={Styles.container}>
       <BackButton text={"Back"} />
 
-      {/* Main Content */}
-
-      {/* <Text style={DeckViewerStyles.title}>
-        {queue.length > 0 ? (
-          queue[currentFlashcard]?.question || "No questions available"
-        ) : (
-          "No questions available"
-        )}
-
-      </Text>
-      <Text style={DeckViewerStyles.title}>
-        {queue.length > 0 ? (
-          queue[currentFlashcard]?.answer || "No questions available"
-        ) : (
-          "No questions available"
-        )}
-
-      </Text> */}
+      {/* Flashcard */}
       <GestureHandlerRootView style={{ flex: 1 }}>
-      <PanGestureHandler
-        onGestureEvent={handleGestureEvent}
-        onHandlerStateChange={handleStateChange}
-      >
-                <Animated.View
-          style={[DeckViewerStyles.flashcard, { transform: [{ translateX }] }]}
+        <PanGestureHandler
+          onGestureEvent={handleGestureEvent}
+          onHandlerStateChange={handleStateChange}
         >
-          <Text>{queue[currentFlashcard]?.question}</Text>
-          <Text>{queue[currentFlashcard]?.answer}</Text>
-        </Animated.View>
-      </PanGestureHandler>
-    </GestureHandlerRootView>
+          <Animated.View
+            style={[DeckViewerStyles.flashcard, { transform: [{ translateX }] }]}
+          >
+            <Text style={DeckViewerStyles.flashcardText}>{queue.length > 0 ? (
+              queue[currentFlashcard]?.question || "No questions available"
+            ) : (
+              "No questions available"
+            )}</Text>
+            <Text style={DeckViewerStyles.flashcardText}>{queue[currentFlashcard]?.answer}</Text>
+          </Animated.View>
+        </PanGestureHandler>
+      </GestureHandlerRootView>
     </View>
   )
 }
