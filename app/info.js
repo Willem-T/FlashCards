@@ -39,8 +39,8 @@ export default function App() {
           The app is built using React Native and SQLite.
         </Text>
 
-        <Image style={Styles.image} source={require('../assets/info1.png')} />
-        <Image style={Styles.image} source={require('../assets/info2.png')} />
+        <Image style={Styles.image} source={require('../assets/infoImage1.png')} />
+        <Image style={Styles.image} source={require('../assets/infoImage2.png')} />
       </ScrollView>
     </View>
   )
