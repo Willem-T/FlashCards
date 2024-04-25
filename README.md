@@ -8,6 +8,10 @@ Track Progress: Keep track of your progress as you study each deck. See which ca
 Customizable: Customize your study sessions by choosing which decks to study and how many cards to include.
 Offline Support: Study your flashcards even without an internet connection.
 
+
+You can view the upcoming features on the 
+[Roadmap](https://github.com/Willem-T/FlashCards/wiki/Roadmap)
+
 ## Getting Started
 ### React Native Installation
 
