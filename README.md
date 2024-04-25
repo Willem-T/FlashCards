@@ -56,5 +56,4 @@ Track your progress and review your performance after each study session.
 [Willem Toews](https://github.com/Willem-T)
 
 ## Known issues
-
-  database is breaking at random times
+Database Instability: Occasionally, the database may encounter random issues.
