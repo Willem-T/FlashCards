@@ -9,7 +9,7 @@ Customizable: Customize your study sessions by choosing which decks to study and
 Offline Support: Study your flashcards even without an internet connection.
 
 
-You can view the upcoming features on the 
+You can view the upcoming features and known issues on the roadmap
 [Roadmap](https://github.com/Willem-T/FlashCards/wiki/Roadmap)
 
 ## Getting Started
@@ -58,6 +58,3 @@ Track your progress and review your performance after each study session.
 
 ## Contributors
 [Willem Toews](https://github.com/Willem-T)
-
-## Known issues
-Database Instability: Occasionally, the database may encounter random issues.
