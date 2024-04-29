@@ -136,3 +136,19 @@ export const fetchFlashcards = (deckId, callback) => {
 export const closeDatabase = () => {
   db._db.close();
 };
+
+//delete a deck
+export const deleteDeck = (deckId) => {
+  db.transaction((tx) => {
+      tx.executeSql(
+          'DELETE FROM decks WHERE id = ?;',
+          [deckId],
+          (_, result) => {
+              console.log(result);//debug
+          },
+          (_, err) => {
+              console.log(err);
+          }
+      );
+  });
+};

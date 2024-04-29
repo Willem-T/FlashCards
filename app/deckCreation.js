@@ -9,7 +9,7 @@
  *      clear the flashcards after the deck is created
  *      fix the deck_id on the flashcard insert to match the id of the deck
  *      check if the deck exists before creating it
- *      check if any fields are empty before creating the deck
+ *      *check if any fields are empty before creating the deck (breaks the flashcard viewer)
  *      
  */
 

@@ -2,7 +2,7 @@ import { Pressable,Text } from "react-native";
 import Styles from "../styles/generalStyleSheet.js";
 import { Link } from "expo-router";
 
-export default NavButton = ({ text, style, path, params }) => {
+export default NavButton = ({ text, style, path, params}) => {
     return (
             <Link href={
                 {
