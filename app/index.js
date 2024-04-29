@@ -1,10 +1,9 @@
 /**
  * Filename: index.js
  * Created by: Willem Toews
- * Purpose: CIT-2269 Final Project
- * Description: To View and memorize flashcards
+ * Purpose: To be the main page of the app
+ * Description: This is the main page of the app.
  * TODO:
- *       create edit and delete functionality (yeah we aint gonna have time for that)
  *     
  */
 

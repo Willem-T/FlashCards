@@ -1,8 +1,8 @@
 /**
  * Filename: info.js
  * Created by: Willem Toews
- * Purpose: CIT-2269 Final Project
- * Description: information page
+ * Purpose: To be the information page
+ * Description: This is the information page of the app.
  * TODO:
  * 
  */

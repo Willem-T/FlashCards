@@ -1,10 +1,10 @@
 /**
  * Filename: flashcardViewer.js
  * Created by: Willem Toews
- * Purpose: CIT-2269 Final Project
- * Description: To View and memorize flashcards
+ * Purpose: To view a deck of flashcards
+ * Description: this allows the user to view a deck of flashcards. 
+ *              The user can swipe left or right to go to the next flashcard.
  * TODO:
- *      show modal when the deck is done and allow the user to restart the deck
  */
 
 import { View, Text, Animated, Pressable, ImageBackground, Modal } from "react-native";

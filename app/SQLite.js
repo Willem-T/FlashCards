@@ -1,8 +1,9 @@
 /**
  * Filename: SQLite.js
  * Created by: Willem Toews
- * Purpose: CIT-2269 Final Project
- * Description: SQLite database for flashcard app
+ * Purpose: SQLite database for the flashcard app
+ * Description: The database has two tables: decks and flashcards.
+ *              *this database is going to be reworked in V3.0.0
  * TODO:
  *      
  *      
