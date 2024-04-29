@@ -1,12 +1,14 @@
 /**
  * Filename: deckCreation.js
  * Created by: Willem Toews
- * Purpose: CIT-2269 Final Project
- * Description: To create a new flashcard deck
+ * Purpose: To create a new flashcard deck
+ * Description: This file contains the code for creating a new flashcard deck. 
+ *              The user can input a name for the deck, and add flashcards to it. 
+ *              The flashcards are stored in an array, and are displayed on the screen. 
+ *              The user can also create the deck, which will store the deck and flashcards in the database.
  * TODO:
  *      fix the database issues
  *      set limits on the input fields for the flashcards
- *      clear the flashcards after the deck is created
  *      fix the deck_id on the flashcard insert to match the id of the deck
  *      check if the deck exists before creating it
  *      *check if any fields are empty before creating the deck (breaks the flashcard viewer)
@@ -36,6 +38,13 @@ export default function App() {
   }, []);
 
   async function createDeck() {
+    // Check if name is empty
+    if (name === '') {
+      return alert("Deck name is empty");
+    }
+    if (flashcards.length === 0) {
+      return alert("No flashcards added");
+    }
     await addDeck(name);
     // let result = await fetchDecks();
     // console.log(result);

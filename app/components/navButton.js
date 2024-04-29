@@ -1,3 +1,11 @@
+/**
+ * Filename: navButton.js
+ * Created by: Willem Toews
+ * Purpose: A navigation button component
+ * Description: A generic navigation button component that can be used in any screen.
+ * TODO:
+ *      
+ */
 import { Pressable,Text } from "react-native";
 import Styles from "../styles/generalStyleSheet.js";
 import { Link } from "expo-router";
