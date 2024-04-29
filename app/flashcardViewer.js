@@ -174,8 +174,8 @@ export default function App() {
   const isEndOfDeck = () => {
     if (queue.length === 0) {
       return (
-        console.log(counter) // Debugging purposes
-        ,
+        //console.log(counter) // Debugging purposes
+        
         <Modal
           animationType="slide"
           transparent={true}

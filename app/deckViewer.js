@@ -66,7 +66,7 @@ export default function App() {
               style={DeckViewerStyles.button}
               key={deck.id}
               onPress={() => {
-                navigate("flashcardViewer", {deckId: deck.id, deckName: deck.name});
+                navigate("flashcardViewer", {deckId: deck.name, deckName: deck.name});
               }}
               onLongPress={() => {
                 setSelectedDeckParams({"deck_id": deck.id, "deck_name": deck.name});
