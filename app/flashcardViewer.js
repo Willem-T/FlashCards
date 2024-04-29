@@ -27,13 +27,13 @@ export default function App() {
   const params = useLocalSearchParams();
   const [queue, setQueue] = useState([{ "answer": "Loading...", "deck_id": "Loading", "id": params.deckId, "question": "Loading..." }]);// needs to be a defualt length of 1 to not show the restart modal
   const translateX = new Animated.Value(0);
+  const translateY = new Animated.Value(0);
   const [counter, setCounter] = useState({ "right": 0, "wrong": 0});
 
   //debug
   useEffect(() => {
     console.log(params.deckId);
   }, []);
-
 
 
   /******************************
@@ -118,20 +118,31 @@ export default function App() {
   //swipe right
   //dont know the answer keep the flashcard
   function onSwipeLeft() {
-    Animated.timing(translateX, {
-      toValue: -500,
-      duration: 200,
-      useNativeDriver: true,
-    }).start(() => {
+    Animated.parallel([
+      Animated.timing(translateX, {
+        toValue: -500,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateY, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      })
+    ]).start(() => {
       setCounter({ "wrong": counter.wrong + 1, "right": counter.right})
       randomFlashcard();
       translateX.setValue(0);
+      translateY.setValue(0); // reset Y value
     });
   }
 
   // Gesture handling
   const handleGestureEvent = Animated.event(
-    [{ nativeEvent: { translationX: translateX } }],
+    [{ nativeEvent: { 
+      translationX: translateX, 
+      translationY: translateY
+    } }],
     { useNativeDriver: true }
   );
 
@@ -145,7 +156,12 @@ export default function App() {
         onSwipeLeft();
         setCurrentFlashcardSide("Question");
       } else {
+        // reset X and Y values
         Animated.spring(translateX, {
+          toValue: 0,
+          useNativeDriver: true,
+        }).start();
+        Animated.spring(translateY, {
           toValue: 0,
           useNativeDriver: true,
         }).start();
@@ -166,6 +182,7 @@ export default function App() {
       setCurrentFlashcardSide("Question");
     }
   }
+
 
   /******************************
   * End of deck logic
@@ -224,7 +241,7 @@ export default function App() {
           onGestureEvent={handleGestureEvent}
           onHandlerStateChange={handleStateChange}
         >
-          <Animated.View style={[DeckViewerStyles.flashcard, { transform: [{ translateX }] }]}>
+          <Animated.View style={[DeckViewerStyles.flashcard, { transform: [{ translateX }, {translateY}] }]} >
             <Pressable
               onPress={() => flashcardSide()}
               style={{ flex: 1, justifyContent: 'center' }}

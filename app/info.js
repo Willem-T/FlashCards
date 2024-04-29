@@ -26,11 +26,11 @@ export default function App() {
         }}
       >
         <Text style={Styles.infoText}>
-          This app was created by Willem Toews for the CIT-2269 final project.
+          This app was created by Willem Toews.
           {"\n\n"}
           The purpose of this app is to help users memorize questions using flashcards.
           {"\n\n"}
-          The user can create decks of flashcards and view them.
+          The user can create and delete decks of flashcards and view them.
           {"\n\n"}
           The user can also view and memorize the questions.
           {"\n\n"}
