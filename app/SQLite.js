@@ -3,10 +3,7 @@
  * Created by: Willem Toews
  * Purpose: SQLite database for the flashcard app
  * Description: The database has two tables: decks and flashcards.
- *              *this database is going to be reworked in V3.0.0
- * TODO:
- *      
- *      
+ *              *this database is going to be reworked in V3.0.0   
  */
 
 import * as SQLite from 'expo-sqlite';

@@ -4,7 +4,6 @@
  * Purpose: To view a deck of flashcards
  * Description: this allows the user to view a deck of flashcards. 
  *              The user can swipe left or right to go to the next flashcard.
- * TODO:
  */
 
 import { View, Text, Animated, Pressable, ImageBackground, Modal } from "react-native";

@@ -6,13 +6,6 @@
  *              The user can input a name for the deck, and add flashcards to it. 
  *              The flashcards are stored in an array, and are displayed on the screen. 
  *              The user can also create the deck, which will store the deck and flashcards in the database.
- * TODO:
- *      fix the database issues
- *      set limits on the input fields for the flashcards
- *      fix the deck_id on the flashcard insert to match the id of the deck
- *      check if the deck exists before creating it
- *      *check if any fields are empty before creating the deck (breaks the flashcard viewer)
- *      
  */
 
 import { View, Text, TextInput, Pressable, Modal, ScrollView } from "react-native";

@@ -3,7 +3,6 @@
  * Created by: Willem Toews
  * Purpose: To be the main page of the app
  * Description: This is the main page of the app.
- * TODO:
  *     
  */
 

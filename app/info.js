@@ -3,8 +3,6 @@
  * Created by: Willem Toews
  * Purpose: To be the information page
  * Description: This is the information page of the app.
- * TODO:
- * 
  */
 
 import { View, ScrollView, Text, Image } from "react-native";
