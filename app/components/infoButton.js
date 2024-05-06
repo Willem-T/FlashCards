@@ -3,8 +3,6 @@
  * Created by: Willem Toews
  * Purpose: an info button component
  * Description: a info button that has an associated path and picture
- * TODO:
- *      
  */
 import { Pressable, ImageBackground } from "react-native";
 import Styles from "../styles/generalStyleSheet.js";

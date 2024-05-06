@@ -4,8 +4,6 @@
  * Purpose: To view a deck of flashcards
  * Description: The user can view a list of all the decks, and select a deck to view.
  *              The user can also delete a deck by longpressing a deck.
- * TODO:
- * 
  * Caution: decks id is the name of the deck
  */
 
@@ -55,20 +53,11 @@ export default function App() {
         {decks.map((deck) => {
           console.log(deck.id + " " + deck.name);//debug
           return (
-            // <NavButton 
-            // text={deck.name} 
-            // params={deck.name} 
-            // path={"flashcardViewer"} 
-            // style={DeckViewerStyles.button}
-            // key={deck.id}
-            // onLongPress={() => {setModalVisible(true)}}
-            // onPress={() => {console.log(deck.name)}}
-            // />
             <Pressable
               style={DeckViewerStyles.button}
               key={deck.id}
               onPress={() => {
-                navigate("flashcardViewer", {deckId: deck.id, deckName: deck.name});
+                navigate("flashcardViewer", {deckId: deck.name, deckName: deck.name});
               }}
               onLongPress={() => {
                 setSelectedDeckParams({"deck_id": deck.id, "deck_name": deck.name});

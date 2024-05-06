@@ -4,7 +4,6 @@
  * Purpose: To view a deck of flashcards
  * Description: this allows the user to view a deck of flashcards. 
  *              The user can swipe left or right to go to the next flashcard.
- * TODO:
  */
 
 import { View, Text, Animated, Pressable, ImageBackground, Modal } from "react-native";
@@ -13,6 +12,8 @@ import BackButton from './components/backButton.js';
 import { fetchAllFlashcards } from "./SQLite";
 import { useState, useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
+import FlipCard from "react-native-flip-card";
+
 
 // Styles
 import Styles from "./styles/generalStyleSheet.js";
@@ -28,13 +29,15 @@ export default function App() {
   const params = useLocalSearchParams();
   const [queue, setQueue] = useState([{ "answer": "Loading...", "deck_id": "Loading", "id": params.deckId, "question": "Loading..." }]);// needs to be a defualt length of 1 to not show the restart modal
   const translateX = new Animated.Value(0);
-  const [counter, setCounter] = useState({ "right": 0, "wrong": 0});
+  const translateY = new Animated.Value(0);
+  const [counter, setCounter] = useState({ "right": 0, "wrong": 0 });
+  const [isTextVisible, setIsTextVisible] = useState(true);
+
 
   //debug
   useEffect(() => {
     console.log(params.deckId);
   }, []);
-
 
 
   /******************************
@@ -110,7 +113,7 @@ export default function App() {
       duration: 200,
       useNativeDriver: true,
     }).start(() => {
-      setCounter({ "right": counter.right + 1, "wrong": counter.wrong})
+      setCounter({ "right": counter.right + 1, "wrong": counter.wrong })
       removeFlashcard(currentFlashcard);
       translateX.setValue(0);
     });
@@ -119,20 +122,33 @@ export default function App() {
   //swipe right
   //dont know the answer keep the flashcard
   function onSwipeLeft() {
-    Animated.timing(translateX, {
-      toValue: -500,
-      duration: 200,
-      useNativeDriver: true,
-    }).start(() => {
-      setCounter({ "wrong": counter.wrong + 1, "right": counter.right})
+    Animated.parallel([
+      Animated.timing(translateX, {
+        toValue: -500,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateY, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      })
+    ]).start(() => {
+      setCounter({ "wrong": counter.wrong + 1, "right": counter.right })
       randomFlashcard();
       translateX.setValue(0);
+      translateY.setValue(0); // reset Y value
     });
   }
 
   // Gesture handling
   const handleGestureEvent = Animated.event(
-    [{ nativeEvent: { translationX: translateX } }],
+    [{
+      nativeEvent: {
+        translationX: translateX,
+        translationY: translateY
+      }
+    }],
     { useNativeDriver: true }
   );
 
@@ -146,7 +162,12 @@ export default function App() {
         onSwipeLeft();
         setCurrentFlashcardSide("Question");
       } else {
+        // reset X and Y values
         Animated.spring(translateX, {
+          toValue: 0,
+          useNativeDriver: true,
+        }).start();
+        Animated.spring(translateY, {
           toValue: 0,
           useNativeDriver: true,
         }).start();
@@ -168,6 +189,7 @@ export default function App() {
     }
   }
 
+
   /******************************
   * End of deck logic
   ******************************/
@@ -175,14 +197,14 @@ export default function App() {
   const isEndOfDeck = () => {
     if (queue.length === 0) {
       return (
-        console.log(counter) // Debugging purposes
-        ,
+        //console.log(counter) // Debugging purposes
+
         <Modal
           animationType="slide"
           transparent={true}
           visible={true} // Set modalVisible to true when the deck is done
           onRequestClose={() => {
-            setModalVisible(false); 
+            setModalVisible(false);
           }}
         >
           <View style={DeckViewerStyles.modelContainer}>
@@ -212,9 +234,9 @@ export default function App() {
 
   //reset the counter
   function resetCounter() {
-    setCounter({ "right": 0, "wrong": 0});
+    setCounter({ "right": 0, "wrong": 0 });
   }
-  
+
   return (
     <View style={Styles.container}>
       <BackButton text={"Back"} />
@@ -225,23 +247,68 @@ export default function App() {
           onGestureEvent={handleGestureEvent}
           onHandlerStateChange={handleStateChange}
         >
-          <Animated.View style={[DeckViewerStyles.flashcard, { transform: [{ translateX }] }]}>
-            <Pressable
-              onPress={() => flashcardSide()}
-              style={{ flex: 1, justifyContent: 'center' }}
-            >
 
-              <View style={DeckViewerStyles.imageContainer}>
-                <ImageBackground source={require('../assets/redArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.redArrow]} />
-                <ImageBackground source={require('../assets/greenArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.greenArrow]} />
+          <Animated.View style={[{ transform: [{ translateX }, { translateY }] }]}>
+            <FlipCard
+              style={DeckViewerStyles.flashcard}
+              friction={6}
+              perspective={1000}
+              flipHorizontal={true}
+              flipVertical={false}
+              flip={false}
+              clickable={true}
+              onFlipStart={(isFlipStart) => {
+                setIsTextVisible(false);
+                setTimeout(() => { //to make the animation text look better
+                  flashcardSide();
+                  setIsTextVisible(true);
+                }, 200);
+              }}
+              onFlipEnd={(isFlipEnd) => {
+                console.log('isFlipEnd', isFlipEnd)
+              }}
+            >
+              <View style={DeckViewerStyles.flashcardSide}>
+
+                <View style={DeckViewerStyles.imageContainer}>
+                  <ImageBackground source={require('../assets/redArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.redArrow]} />
+                  <ImageBackground source={require('../assets/greenArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.greenArrow]} />
+                </View>
+                {isTextVisible && (
+                  <>
+                    <Text style={DeckViewerStyles.flashcardTitle}> {currentFlashcardSide} </Text>
+                    <Text style={DeckViewerStyles.flashcardText}>
+                      {queue.length > 0 ? (
+                        currentFlashcardSide == "Question" ? queue[currentFlashcard]?.question : queue[currentFlashcard]?.answer
+                      ) : (
+                        "No questions available"
+                      )}
+                    </Text>
+                  </>
+                )}
               </View>
-              <Text style={DeckViewerStyles.flashcardTitle}> {currentFlashcardSide} </Text>
-              <Text style={DeckViewerStyles.flashcardText}>{queue.length > 0 ? (
-                currentFlashcardSide == "Question" ? queue[currentFlashcard]?.question : queue[currentFlashcard]?.answer
-              ) : (
-                "No questions available"
-              )}</Text>
-            </Pressable>
+              <View style={DeckViewerStyles.flashcardSide}>
+
+                <View style={DeckViewerStyles.imageContainer}>
+                  <ImageBackground source={require('../assets/redArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.redArrow]} />
+                  <ImageBackground source={require('../assets/greenArrow.png')} style={[DeckViewerStyles.flashcardImage, DeckViewerStyles.greenArrow]} />
+                </View>
+
+                {isTextVisible && (
+                  <>
+                    <Text style={DeckViewerStyles.flashcardTitle}> {currentFlashcardSide} </Text>
+                    <Text style={DeckViewerStyles.flashcardText}>
+                      {queue.length > 0 ? (
+                        currentFlashcardSide == "Question" ? queue[currentFlashcard]?.question : queue[currentFlashcard]?.answer
+                      ) : (
+                        "No questions available"
+                      )}
+                    </Text>
+                  </>
+                )}
+              </View>
+            </FlipCard>
+
           </Animated.View>
         </PanGestureHandler>
       </GestureHandlerRootView>
