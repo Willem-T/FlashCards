@@ -25,7 +25,7 @@ Dependencies
 - "react": "18.2.0"
 - "react-native": "0.73.6"
 - "react-native-gesture-handler": "~2.14.0"
-- "react-native-reanimated": "~3.6.2"
+- "react-native-flip-card": "^3.5.7",
 - "react-native-safe-area-context": "4.8.2"
 - "react-native-screens": "~3.29.0"
 
