@@ -8,7 +8,7 @@
  *              The user can also create the deck, which will store the deck and flashcards in the database.
  */
 
-import { View, Text, TextInput, Pressable, Modal, ScrollView } from "react-native";
+import { View, Text, TextInput, Pressable, Modal, ScrollView, KeyboardAvoidingView  } from "react-native";
 import { useState, useEffect } from "react";
 import { addDeck, addFlashcard, initDatabase } from "./SQLite";
 import BackButton from './components/backButton.js';
@@ -60,7 +60,8 @@ export default function App() {
   }
 
   return (
-    <View style={Styles.container}>
+    
+    <KeyboardAvoidingView style={Styles.container}>
       <BackButton text={"Back"} />
 
       {/* Main Content */}
@@ -154,6 +155,6 @@ export default function App() {
                 );
               })}
             </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
