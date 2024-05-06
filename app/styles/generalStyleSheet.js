@@ -99,6 +99,24 @@ const styles = StyleSheet.create({
         margin: 10,
         right: 0,
     },
+    saveButton: {
+        width: '40%',
+        height: '15%',
+        alignItems: 'center',
+        keepAspectRatio: 1,
+        padding: 16,
+        borderRadius: 6,
+        elevation: 2,
+        backgroundColor: '#FFC300',
+        padding: 15,
+        margin: 20,
+        marginTop: '20%',
+        justifyContent: 'center',
+    },
+    saveButtonText: {
+        fontSize: 20,
+        color: 'black',
+    },
 });
 
 export default styles;
