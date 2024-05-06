@@ -15,16 +15,16 @@ const styles = StyleSheet.create({
         width: '100%',
         textAlign: 'center',
         fontWeight: 'bold',
-        color: '#fff', 
+        color: '#fff',
         textShadowColor: '#FFC300',
         textShadowOffset: { width: 0, height: 0 },
-        textShadowRadius: 20, 
+        textShadowRadius: 20,
     },
     backButton: {
         width: '40%',
         alignItems: 'center',
         padding: 16,
-        borderRadius: 6, 
+        borderRadius: 6,
         elevation: 2,
         marginTop: 40,
         backgroundColor: '#C70039',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         keepAspectRatio: 1,
         padding: 16,
-        borderRadius: 6, 
+        borderRadius: 6,
         elevation: 2,
         backgroundColor: '#FFC300',
         padding: 15,
@@ -83,7 +83,22 @@ const styles = StyleSheet.create({
         height: 800,
         resizeMode: 'contain',
         margin: 10,
-    }
+    },
+    settingsImage: {
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
+        margin: 10,
+        left: 0,
+        position: 'absolute',
+    }, 
+    settingsButton: {
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
+        margin: 10,
+        right: 0,
+    },
 });
 
 export default styles;

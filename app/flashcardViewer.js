@@ -314,7 +314,7 @@ export default function App() {
       </GestureHandlerRootView>
 
       {/* Modal */}
-      {isEndOfDeck()}
+      {isEndOfDeck() /**Should prolly change this to a useEffect */}
     </View>
   )
 }
