@@ -53,15 +53,6 @@ export default function App() {
         {decks.map((deck) => {
           console.log(deck.id + " " + deck.name);//debug
           return (
-            // <NavButton 
-            // text={deck.name} 
-            // params={deck.name} 
-            // path={"flashcardViewer"} 
-            // style={DeckViewerStyles.button}
-            // key={deck.id}
-            // onLongPress={() => {setModalVisible(true)}}
-            // onPress={() => {console.log(deck.name)}}
-            // />
             <Pressable
               style={DeckViewerStyles.button}
               key={deck.id}

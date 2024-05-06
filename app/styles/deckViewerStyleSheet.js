@@ -56,16 +56,15 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 20,
         minWidth: "80%",
-        maxWidth: "80%",
         height: "90%",
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         justifyContent: 'center',
-        flex: 1,
     },
     flashcardText: {
         fontSize: 40,
         textAlign: 'center',
+        alignSelf: 'center',
     },
     flashcardImage: {
         width: 50,
@@ -129,6 +128,12 @@ const styles = StyleSheet.create({
         textShadowColor: '#FFC300',
         textShadowOffset: { width: 0, height: 0 },
         textShadowRadius: 20, 
+    },
+    flashcardSide: {
+        backgroundColor: "#FFC300",
+        minWidth: "80%",
+        height: "90%",
+        justifyContent: 'center',
     },
 });
 

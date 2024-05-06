@@ -39,6 +39,7 @@ export default function App() {
 
         <Image style={Styles.image} source={require('../assets/infoImage1.png')} />
         <Image style={Styles.image} source={require('../assets/infoImage2.png')} />
+        <Image style={Styles.image} source={require('../assets/infoImage3.png')} />
       </ScrollView>
     </View>
   )
