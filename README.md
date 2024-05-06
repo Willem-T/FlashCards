@@ -57,4 +57,4 @@ Swipe left if you don't know the answer, swipe right if you do.
 Track your progress and review your performance after each study session.
 
 ## Contributors
-[Willem Toews](https://github.com/Willem-T)
+[Willem-T](https://github.com/Willem-T)
